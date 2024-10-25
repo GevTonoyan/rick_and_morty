@@ -98,6 +98,15 @@ mixin _$CharactersStore on _CharactersStore, Store {
         .run(() => super.fetchCharacters(isLoadMore: isLoadMore));
   }
 
+  late final _$toggleLikeCharacterAsyncAction =
+      AsyncAction('_CharactersStore.toggleLikeCharacter', context: context);
+
+  @override
+  Future<void> toggleLikeCharacter(int characterId) {
+    return _$toggleLikeCharacterAsyncAction
+        .run(() => super.toggleLikeCharacter(characterId));
+  }
+
   late final _$refreshCharactersAsyncAction =
       AsyncAction('_CharactersStore.refreshCharacters', context: context);
 

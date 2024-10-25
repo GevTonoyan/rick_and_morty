@@ -9,11 +9,15 @@ import 'package:rick_and_morty/features/feature_characters/domain/entities/chara
 class CharacterItemWidget extends StatelessWidget {
   final CharacterEntity character;
   final VoidCallback? onTap;
+  final VoidCallback? onLikeTap;
+  final bool isLiked;
 
   const CharacterItemWidget({
     super.key,
     required this.character,
+    this.isLiked = false,
     this.onTap,
+    this.onLikeTap,
   });
 
   @override
@@ -52,14 +56,14 @@ class CharacterItemWidget extends StatelessWidget {
                   right: 10,
                   top: 10,
                   child: AppCircle(
-                    onTap: () {
-                      //TODO
-                    },
+                    onTap: onLikeTap,
                     width: 30,
                     height: 30,
                     color: appTheme.colorPalette.whiteSmoke,
                     child: SvgPicture.asset(
-                      'assets/icons/unliked.svg',
+                      isLiked
+                          ? 'assets/icons/liked.svg'
+                          : 'assets/icons/unliked.svg',
                       width: 16,
                       height: 16,
                       colorFilter: ColorFilter.mode(

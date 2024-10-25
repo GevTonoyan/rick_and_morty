@@ -6,11 +6,11 @@ import 'package:rick_and_morty/features/feature_characters/characters_scope.dart
 
 final sl = GetIt.instance;
 
-void setupDependencies() {
+Future<void> setupDependencies()async  {
   // Core components
   sl.registerLazySingleton<HttpProvider>(() => DioProvider());
 
   // Features
-  injectCharactersScope();
+  await injectCharactersScope();
   injectCharacterDetailScope();
 }

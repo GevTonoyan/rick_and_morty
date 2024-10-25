@@ -23,6 +23,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   @override
   void initState() {
     super.initState();
+    charactersStore.fetchLikedCharacters();
     charactersStore.fetchCharacters();
     _scrollController.addListener(_scrollListener);
   }
@@ -64,12 +65,21 @@ class _CharactersScreenState extends State<CharactersScreen> {
                   itemCount: characters.length,
                   itemBuilder: (context, index) {
                     final character = characters[index];
-                    return CharacterItemWidget(
-                      character: character,
-                      onTap: () {
-                        context.goNamed(
-                          RouteNames.characterDetail,
-                          pathParameters: {'id': character.id.toString()},
+                    return Observer(
+                      builder: (_) {
+                        return CharacterItemWidget(
+                          character: character,
+                          isLiked: charactersStore.likedCharacterIds
+                              .contains(character.id),
+                          onLikeTap: () {
+                            charactersStore.toggleLikeCharacter(character.id);
+                          },
+                          onTap: () {
+                            context.goNamed(
+                              RouteNames.characterDetail,
+                              pathParameters: {'id': character.id.toString()},
+                            );
+                          },
                         );
                       },
                     );
